@@ -40,6 +40,20 @@ class AppRouter {
               : const RegisterScreen(),
         );
 
+      case RouteName.signInScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.signInScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const SignInScreen(),
+                )
+              : const SignInScreen(),
+        );
+
       case RouteName.landingScreen:
         return MaterialPageRoute(
           settings: RouteSettings(
