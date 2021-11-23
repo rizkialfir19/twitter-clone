@@ -34,6 +34,10 @@ class Palette {
   static const Color grey = Color(0xFF2F3C65);
   static const Color greyLighten1 = Color(0xFF989898);
 
+  // Green
+  static const Color green = Color(0xFF00FF00);
+  static const Color greenLighten1 = Color(0xFF56E395);
+
   // Transparent
   static const Color transparent = Color(0x000000FF);
 }

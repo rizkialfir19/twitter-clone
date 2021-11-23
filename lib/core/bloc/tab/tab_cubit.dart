@@ -4,15 +4,13 @@ import 'package:twitter_clone/common/common.dart';
 /// Cubit for handling tab interaction
 ///
 /// We can add more logic as the user tap the tab
-class TabCubit extends Cubit<Tabs> {
-  TabCubit() : super(Tabs(tab: AppTab.home));
+class TabCubit extends Cubit<AppTab> {
+  TabCubit() : super(AppTab.home);
 
   /// Change tab
   void changeTab({
     required AppTab tab,
   }) {
-    emit(Tabs(
-      tab: tab,
-    ));
+    emit(tab);
   }
 }

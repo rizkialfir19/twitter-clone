@@ -54,6 +54,20 @@ class AppRouter {
               : const SignInScreen(),
         );
 
+      case RouteName.signInScreenSecond:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.signInScreenSecond,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const SignInScreenSecond(),
+                )
+              : const SignInScreenSecond(),
+        );
+
       case RouteName.landingScreen:
         return MaterialPageRoute(
           settings: RouteSettings(
@@ -80,6 +94,76 @@ class AppRouter {
                   child: const HomeScreen(),
                 )
               : const HomeScreen(),
+        );
+
+      case RouteName.searchScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.searchScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const SearchScreen(),
+                )
+              : const SearchScreen(),
+        );
+
+      case RouteName.spacesScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.spacesScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const SpacesScreen(),
+                )
+              : const SpacesScreen(),
+        );
+
+      case RouteName.notificationScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.notificationScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const NotificationScreen(),
+                )
+              : const NotificationScreen(),
+        );
+
+      case RouteName.messageScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.messageScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const MessageScreen(),
+                )
+              : const MessageScreen(),
+        );
+
+      case RouteName.createTweetScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.createTweetScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const CreateTweetScreen(),
+                )
+              : const CreateTweetScreen(),
         );
 
       default:

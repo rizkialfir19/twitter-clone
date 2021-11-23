@@ -7,4 +7,8 @@ enum AppSetupState {
 /// Tab type
 enum AppTab {
   home,
+  search,
+  spaces,
+  notification,
+  message,
 }

@@ -1,4 +1,9 @@
 export 'authentication/authentication.dart';
+export 'create_tweet/create_tweet_screen.dart';
 export 'home/home_screen.dart';
 export 'landing/landing_screen.dart';
+export 'message/message_screen.dart';
+export 'notification/notification_screen.dart';
+export 'search/search_screen.dart';
+export 'spaces/spaces_screen.dart';
 export 'splash/splash_screen.dart';

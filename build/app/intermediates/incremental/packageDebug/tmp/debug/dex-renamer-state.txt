@@ -1,4 +1,4 @@
-#Sun Nov 21 20:53:46 WIB 2021
+#Tue Nov 23 21:41:48 WIB 2021
 base.0=/Users/rizkialfiramdhani/AndroidStudioProjects/twitter-clone/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
