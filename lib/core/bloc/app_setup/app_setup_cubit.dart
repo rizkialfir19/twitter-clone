@@ -11,40 +11,15 @@ class AppSetupCubit extends Cubit<AppSetupState> {
 
   /// Initialize all setups that required by the application
   void initialize() async {
-    print("---> Masuk initialize AppSetupCubit");
     try {
-      // await firebaseClient.initializeApp();
+      await firebaseClient.initializeApp();
+      await firebaseClient.initializeAuth();
 
-      // firebaseClient.crashlyticsListenError();
-      // await firebaseClient.remoteConfigSetting(
-      //   Duration(seconds: 10),
-      //   Duration(seconds: 60),
-      // );
-      // await firebaseClient.remoteConfigFetch();
-      // await firebaseClient.requestPermission(
-      //   sound: true,
-      //   badge: true,
-      //   alert: true,
-      //   provisional: true,
-      // );
-
-      await Future.delayed(Duration(seconds: 2));
-
-      print("---> Masuk success AppSetupCubit");
+      await Future.delayed(const Duration(seconds: 2));
 
       emit(AppSetupState.success);
-    } catch (e, s) {
-      print("---> Masuk failed AppSetupCubit");
-      print("---> e: $e");
-      print("---> s: $s");
+    } catch (e) {
       emit(AppSetupState.failed);
-      // Logger().write(
-      //   tag: 'INFO',
-      //   className: this,
-      //   functionName: 'initialize',
-      //   message: 'Error while initialize firebase',
-      //   exception: e,
-      // );
     }
   }
 }

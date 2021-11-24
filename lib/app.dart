@@ -1,40 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_clone/app_router.dart';
+import 'package:twitter_clone/core/bloc/sign_up/sign_up_cubit.dart';
 
 import 'common/common.dart';
 import 'core/core.dart';
 
 class App extends StatelessWidget {
-  // final BaseApiClient apiClient;
   final BaseFirebaseClient firebaseClient;
-  // final BaseLocalStorageClient localStorageClient;
-  // final BaseExampleRepository exampleRepository;
+  final BaseLocalStorageClient localStorageClient;
+  final BaseAuthenticationRepository authenticationRepository;
 
   const App({
     Key? key,
-    // required this.apiClient,
     required this.firebaseClient,
-    // required this.localStorageClient,
-    // required this.exampleRepository,
+    required this.localStorageClient,
+    required this.authenticationRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        // RepositoryProvider(
-        //   create: (context) => apiClient,
-        // ),
         RepositoryProvider(
           create: (context) => firebaseClient,
         ),
-        // RepositoryProvider(
-        //   create: (context) => localStorageClient,
-        // ),
-        // RepositoryProvider(
-        //   create: (context) => exampleRepository,
-        // ),
+        RepositoryProvider(
+          create: (context) => localStorageClient,
+        ),
+        RepositoryProvider(
+          create: (context) => authenticationRepository,
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -46,17 +42,19 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthenticationDataCubit(
               appSetupCubit: context.read<AppSetupCubit>(),
+              firebaseClient: firebaseClient,
+              localStorageClient: localStorageClient,
             ),
           ),
           BlocProvider(
             create: (context) => TabCubit(),
           ),
-          // BlocProvider(
-          //   create: (context) => ExampleCubit(
-          //     localStorageClient: localStorageClient,
-          //     exampleRepository: exampleRepository,
-          //   ),
-          // ),
+          BlocProvider(
+            create: (context) => SignUpCubit(
+              localStorageClient: localStorageClient,
+              authenticationRepository: authenticationRepository,
+            ),
+          ),
         ],
         child: const TwitterApp(),
       ),
@@ -149,15 +147,6 @@ class _TwitterAppState extends State<TwitterApp> {
                         RouteName.landingScreen,
                         (route) => false,
                       );
-
-                      ///TODO: Not need checkNotif
-                      //
-                      // // Always Check Last Seen Notification on First Run App
-                      // context.read<GlobalNotifierCubit>().checkNotification(
-                      //       globalNotificationType:
-                      //           GlobalNotificationType.NOTIFICATION_LIFECYCLE,
-                      //       userData: state.data,
-                      //     );
                     }
                   }
 

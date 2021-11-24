@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:twitter_clone/core/core.dart';
 
@@ -12,5 +13,10 @@ class FirebaseClient extends BaseFirebaseClient {
   @override
   Future<void> initializeApp() async {
     _firebaseApp = await Firebase.initializeApp();
+  }
+
+  @override
+  FirebaseAuth initializeAuth() {
+    return FirebaseAuth.instance;
   }
 }

@@ -2,25 +2,23 @@ import 'package:twitter_clone/common/common.dart';
 
 class TwitterUser extends BaseModel {
   final String? token;
-  final String? fcmToken;
   final String? email;
-  final String? firstName;
-  final String? lastName;
-  final String? phoneNumber;
+  final String? username;
+  final String? fullName;
+  final String? password;
 
   TwitterUser({
     this.token,
-    this.fcmToken,
     this.email,
-    this.firstName,
-    this.lastName,
-    this.phoneNumber,
+    this.username,
+    this.fullName,
+    this.password,
   }) : super({
           "token": token,
           "email": email,
-          "firstname": firstName,
-          "lastname": lastName,
-          "phonenumber": phoneNumber,
+          "username": username,
+          "fullName": fullName,
+          "password": password,
         });
 
   factory TwitterUser.fromJson(Map<String, dynamic>? json) {
@@ -31,39 +29,35 @@ class TwitterUser extends BaseModel {
     return TwitterUser(
       token: json['token'],
       email: json['email'],
-      firstName: json['firstname'],
-      lastName: json['lastname'],
-      phoneNumber: json['phonenumber'],
+      username: json['username'],
+      fullName: json['fullName'],
+      password: json['password'],
     );
   }
 
   @override
   copyWith({
     String? token,
-    String? fcmToken,
     String? email,
-    String? firstName,
-    String? lastName,
-    String? phoneNumber,
-    String? companyName,
+    String? username,
+    String? fullName,
+    String? password,
   }) {
     return TwitterUser(
       token: token ?? this.token,
-      fcmToken: fcmToken ?? this.fcmToken,
       email: email ?? this.email,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      username: username ?? this.username,
+      fullName: fullName ?? this.fullName,
+      password: password ?? this.password,
     );
   }
 
   @override
   List<Object?> get props => [
         token,
-        fcmToken,
         email,
-        firstName,
-        lastName,
-        phoneNumber,
+        username,
+        fullName,
+        password,
       ];
 }

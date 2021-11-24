@@ -51,15 +51,21 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
                   ),
-                  child: ContainerSocialMediaButton(
-                    title: 'Create account',
-                    titleColor: Palette.white,
-                    color: Palette.twitterPrimary,
-                    useIcon: false,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      RouteName.createAccountScreen,
+                    ),
+                    child: const ContainerSocialMediaButton(
+                      title: 'Create account',
+                      titleColor: Palette.white,
+                      color: Palette.twitterPrimary,
+                      useIcon: false,
+                    ),
                   ),
                 ),
                 const SizedBox(

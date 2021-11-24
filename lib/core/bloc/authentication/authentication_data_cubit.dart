@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_clone/common/common.dart';
@@ -9,11 +10,15 @@ part 'authentication_state.dart';
 
 class AuthenticationDataCubit extends Cubit<BaseState<TwitterUser>> {
   final AppSetupCubit appSetupCubit;
+  final BaseFirebaseClient firebaseClient;
+  final BaseLocalStorageClient localStorageClient;
 
   late StreamSubscription appSetupCubitSubs;
 
   AuthenticationDataCubit({
     required this.appSetupCubit,
+    required this.firebaseClient,
+    required this.localStorageClient,
   }) : super(InitializedState()) {
     appSetupCubitSubs = appSetupCubit.stream.listen((state) {
       if (state == AppSetupState.success) {
@@ -29,82 +34,47 @@ class AuthenticationDataCubit extends Cubit<BaseState<TwitterUser>> {
   }
 
   void initialize() async {
+    print("---> Masuk initialize authDataCubit");
     String? _token;
     String? _rawUserData;
     TwitterUser? _twitterUserData;
 
     /// Get & Check Local Token
     try {
-      ///TODO: Get Bearer Token
-      // _token = await localStorageClient.getByKey(
-      //   SharedPrefKeys.JWT_TOKEN,
-      //   SharedPrefType.STRING,
-      // );
+      ///TODO: Get User Data
+      _rawUserData = await localStorageClient.getByKey(
+        SharedPrefKey.userData,
+        SharedPrefType.string,
+      );
 
-      print('[$this - getJWTToken] - Result : $_token');
+      print('[$this - getUserData] - Result : $_rawUserData');
 
-      if (_token == null) {
+      if (_rawUserData == null) {
         emit(UnauthenticatedState());
         return;
       }
-    } catch (e) {
+    } catch (e, s) {
+      print("---> Masuk error e: $e");
+      print("---> Masuk error s: $s");
       emit(UnauthenticatedState());
       return;
     }
-
-    /// Check & Validate Expired JWT Token
-    try {
-      // bool isExpired = transformers.isTokenExpired(_token);
-
-      // if (isExpired) {
-      emit(UnauthenticatedState());
-      // return;
-      // }
-    } catch (e) {
-      emit(UnauthenticatedState());
-      return;
-    }
-
-    /// Get & Check Local Raw User Data
-    /// TODO: Get Yummy User login data
-    // try {
-    //   _rawUserData = await localStorageClient.getByKey(
-    //     SharedPrefKeys.USER_DATA,
-    //     SharedPrefType.STRING,
-    //   );
-    //
-    //   if (_rawUserData == null) {
-    //     throw Exception('Raw User Null');
-    //   }
-    // } catch (e) {
-    //   emit(UnauthenticatedState());
-    //   Logger().write(
-    //     tag: 'INFO',
-    //     className: this,
-    //     functionName: 'initialize',
-    //     message: 'Error while Get & Check Local Data',
-    //     exception: e,
-    //     sendCrashlytics: true,
-    //   );
-    //   return;
-    // }
 
     /// Parse Raw User Data To Model
-    /// /// TODO: Parse Yummy User login data
-    // try {
-    //   _yummyUserData = UserData.fromJson(jsonDecode(_rawUserData));
-    // } catch (e) {
-    //   emit(UnauthenticatedState());
-    //   Logger().write(
-    //     tag: 'INFO',
-    //     className: this,
-    //     functionName: 'initialize',
-    //     message: 'Error while Parse Raw User Data To Model',
-    //     exception: e,
-    //     sendCrashlytics: true,
-    //   );
-    //   return;
-    // }
+    try {
+      _twitterUserData = TwitterUser.fromJson(jsonDecode(_rawUserData));
+      print('[$this] - Get User Name : ${_twitterUserData.username}');
+
+      if (_twitterUserData.username == null) {
+        emit(UnauthenticatedState());
+        return;
+      }
+    } catch (e, s) {
+      print("---> Masuk error e: $e");
+      print("---> Masuk error s: $s");
+      emit(UnauthenticatedState());
+      return;
+    }
 
     /// All Passed
     emit(
