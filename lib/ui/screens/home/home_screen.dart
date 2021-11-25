@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_clone/common/common.dart';
+import 'package:twitter_clone/core/bloc/bloc.dart';
+import 'package:twitter_clone/core/core.dart';
 import 'package:twitter_clone/ui/ui.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,21 +11,26 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              width: 0.2,
-              color: Palette.greyLighten1,
+      body: BlocProvider(
+        create: (context) => TweetCubit(
+          firebaseClient: context.read<BaseFirebaseClient>(),
+        )..getData(),
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                width: 0.2,
+                color: Palette.greyLighten1,
+              ),
             ),
+            color: Palette.twitterBackgroundDark,
           ),
-          color: Palette.twitterBackgroundDark,
-        ),
-        child: ListView(
-          children: [
-            _sectionHeader(context),
-            _sectionContent(context),
-          ],
+          child: ListView(
+            children: [
+              _sectionHeader(context),
+              _sectionContent(context),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

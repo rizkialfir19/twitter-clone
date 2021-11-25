@@ -84,60 +84,8 @@ class _TwitterAppState extends State<TwitterApp> {
         return Scaffold(
           body: MultiBlocListener(
             listeners: [
-              // BlocListener<AuthenticationActionCubit, BaseState>(
-              //   listener: (context, state) {
-              //     if (state is SuccessState) {
-              //       if (state.data is bool) {
-              //         bool isExpired = state.data;
-              //         if (isExpired) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               backgroundColor: Palette.redLighten1,
-              //               content: Text(
-              //                 'Sesi Login Kamu Berakhir\n'
-              //                 'Silahkan melakukan login kembali untuk masuk ke aplikasi S-Rangers',
-              //                 style: FontHelper.h8Regular(
-              //                   color: Palette.white,
-              //                 ),
-              //               ),
-              //               behavior: SnackBarBehavior.floating,
-              //               duration: Duration(seconds: 5),
-              //             ),
-              //           );
-              //         }
-              //         context.read<AuthenticationDataCubit>().initialize();
-              //       }
-              //
-              //       if (state.data is UserData) {
-              //         context.read<AuthenticationDataCubit>().updateData(
-              //               userData: state.data,
-              //             );
-              //       } else {
-              //         context.read<VersionCubit>().getLatest();
-              //       }
-              //     }
-              //     if (state is ErrorState) {
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(
-              //           backgroundColor: Palette.redLighten1,
-              //           content: Text(
-              //             'Terjadi Kesalahan, Silakan Coba Lagi.',
-              //             style: FontHelper.h8Regular(
-              //               color: Palette.white,
-              //             ),
-              //           ),
-              //           behavior: SnackBarBehavior.floating,
-              //           duration: Duration(seconds: 3),
-              //         ),
-              //       );
-              //     }
-              //   },
-              // ),
               BlocListener<AuthenticationDataCubit, BaseState<TwitterUser>>(
                 listener: (context, state) {
-                  print('----> masuk listener');
-                  print('----> masuk authDataCubit');
-                  print('----> masuk state: $state');
                   if (state is AuthenticatedState) {
                     if (_lastUser == null) {
                       _lastUser = state.timestamp;

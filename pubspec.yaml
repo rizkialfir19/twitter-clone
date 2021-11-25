@@ -45,6 +45,7 @@ dependencies:
   # Firebase
   firebase_core: ^1.4.0
   firebase_auth: ^3.2.0
+  cloud_firestore: ^3.1.0
 
   # Networking
   dio: ^4.0.0

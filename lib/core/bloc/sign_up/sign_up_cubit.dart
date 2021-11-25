@@ -52,6 +52,46 @@ class SignUpCubit extends Cubit<BaseState> {
       emit(ErrorState(error: 'Sign Up Failure Exception'));
     }
 
+    /// All Validate Pass
+    emit(AuthenticatedState(
+      data: _result,
+      timestamp: DateTime.now(),
+    ));
+  }
+
+  Future<void> signInAccount({
+    required String email,
+    required String password,
+  }) async {
+    TwitterUser? _result;
+    emit(LoadingState());
+
+    if (email.isEmpty || password.isEmpty) {
+      emit(ErrorState(error: 'Masukkan semua field!'));
+      return;
+    }
+
+    /// Get twitterUserData from repository
+    try {
+      _result = await authenticationRepository.signIn(
+        email: email,
+        password: password,
+      );
+
+      if (_result == null) {
+        emit(ErrorState(
+            error: 'null data',
+            data: 'Terjadi Kesalahan, Silahkan coba kembali'));
+        return;
+      }
+    } catch (e, s) {
+      debugPrint("----> e: $e");
+      debugPrint("----> s: $s");
+      emit(ErrorState(error: 'Sign In Failure Exception'));
+    }
+
+    debugPrint("----> result: $_result");
+
     ///Save twitterUserData to Local Data
     try {
       await localStorageClient.saveByKey(

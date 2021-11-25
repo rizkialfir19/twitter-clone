@@ -17,4 +17,6 @@ abstract class BaseAuthenticationRepository {
     required String email,
     required String password,
   });
+
+  void signOut();
 }
