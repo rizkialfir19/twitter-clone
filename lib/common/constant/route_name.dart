@@ -15,4 +15,7 @@ class RouteName {
 
   // Create Tweet
   static const String createTweetScreen = 'createTweetScreen';
+
+  // Profile
+  static const String profileScreen = 'profileScreen';
 }

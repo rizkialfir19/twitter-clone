@@ -16,10 +16,16 @@ class TweetCubit extends Cubit<BaseState> {
 
     try {
       CollectionReference notesItemCollection =
-          firebaseClient.initializeFirestore()!.collection('items');
+          firebaseClient.initializeFirestore()!.collection('tweets');
+
+      dynamic tempData = notesItemCollection.snapshots();
+
+      Stream<QuerySnapshot> test = notesItemCollection.snapshots();
 
       debugPrint("---> data: $notesItemCollection");
-      debugPrint("---> data: $notesItemCollection");
+      debugPrint("---> data: ${notesItemCollection.firestore}");
+      debugPrint("---> data: $test");
+      debugPrint("---> data: $tempData");
     } catch (e, s) {
       debugPrint("----> e: $e");
       debugPrint("----> s: $s");

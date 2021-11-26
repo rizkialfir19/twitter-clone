@@ -35,6 +35,11 @@ class _SignInScreenSecondState extends State<SignInScreenSecond> {
                 ),
               ),
             );
+
+            Navigator.pushNamed(
+              context,
+              RouteName.landingScreen,
+            );
           }
 
           if (state is ErrorState) {
@@ -134,10 +139,6 @@ class _SignInScreenSecondState extends State<SignInScreenSecond> {
                                   password: _password!,
                                 );
                           }
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   RouteName.landingScreen,
-                          // );
                         },
                         child: const ContainerSocialMediaButton(
                           title: 'Log in',

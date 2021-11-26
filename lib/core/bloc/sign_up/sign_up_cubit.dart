@@ -114,4 +114,28 @@ class SignUpCubit extends Cubit<BaseState> {
       timestamp: DateTime.now(),
     ));
   }
+
+  Future<void> signOut() async {
+    emit(LoadingState());
+
+    try {
+      await authenticationRepository.signOut();
+
+      await localStorageClient.deleteByKey(
+        SharedPrefKey.userData,
+      );
+    } catch (e, s) {
+      debugPrint("----> e: $e");
+      debugPrint("----> s: $s");
+      emit(ErrorState(
+        error: 'Terjadi Kesalahan, silahkan coba lagi!',
+      ));
+      return;
+    }
+
+    /// All Validate Pass
+    emit(UnauthenticatedState(
+      timestamp: DateTime.now(),
+    ));
+  }
 }

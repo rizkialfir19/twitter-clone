@@ -60,7 +60,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   }
 
   @override
-  void signOut() {
+  Future<void> signOut() async {
     FirebaseAuth _auth = firebaseClient.initializeAuth();
 
     _auth.signOut();

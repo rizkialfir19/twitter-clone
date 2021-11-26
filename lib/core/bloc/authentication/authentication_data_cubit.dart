@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_clone/common/common.dart';
 
@@ -34,8 +35,7 @@ class AuthenticationDataCubit extends Cubit<BaseState<TwitterUser>> {
   }
 
   void initialize() async {
-    print("---> Masuk initialize authDataCubit");
-    String? _token;
+    debugPrint("---> Masuk initialize authDataCubit");
     String? _rawUserData;
     TwitterUser? _twitterUserData;
 
@@ -47,15 +47,15 @@ class AuthenticationDataCubit extends Cubit<BaseState<TwitterUser>> {
         SharedPrefType.string,
       );
 
-      print('[$this - getUserData] - Result : $_rawUserData');
+      debugPrint('[$this - getUserData] - Result : $_rawUserData');
 
       if (_rawUserData == null) {
         emit(UnauthenticatedState());
         return;
       }
     } catch (e, s) {
-      print("---> Masuk error e: $e");
-      print("---> Masuk error s: $s");
+      debugPrint("---> Masuk error e: $e");
+      debugPrint("---> Masuk error s: $s");
       emit(UnauthenticatedState());
       return;
     }
@@ -63,15 +63,15 @@ class AuthenticationDataCubit extends Cubit<BaseState<TwitterUser>> {
     /// Parse Raw User Data To Model
     try {
       _twitterUserData = TwitterUser.fromJson(jsonDecode(_rawUserData));
-      print('[$this] - Get User Name : ${_twitterUserData.username}');
+      debugPrint('[$this] - Get User Name : ${_twitterUserData.username}');
 
       if (_twitterUserData.username == null) {
         emit(UnauthenticatedState());
         return;
       }
     } catch (e, s) {
-      print("---> Masuk error e: $e");
-      print("---> Masuk error s: $s");
+      debugPrint("---> Masuk error e: $e");
+      debugPrint("---> Masuk error s: $s");
       emit(UnauthenticatedState());
       return;
     }

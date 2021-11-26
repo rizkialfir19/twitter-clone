@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:twitter_clone/ui/screens/profile/profile_screen.dart';
 
 import 'common/common.dart';
 import 'ui/ui.dart';
@@ -178,6 +179,20 @@ class AppRouter {
                   child: const CreateTweetScreen(),
                 )
               : const CreateTweetScreen(),
+        );
+
+      case RouteName.profileScreen:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            name: RouteName.profileScreen,
+            arguments: args?.data,
+          ),
+          builder: (_) => args?.bloc != null
+              ? BlocProvider.value(
+                  value: args!.bloc!,
+                  child: const ProfileScreen(),
+                )
+              : const ProfileScreen(),
         );
 
       default:
